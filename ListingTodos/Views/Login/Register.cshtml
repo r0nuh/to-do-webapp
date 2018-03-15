@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title>User registration</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="container theme-showcase" role="main">
+        <div class="page-header">
+            <h1>User registration</h1>
+        </div>
+        <form action="/register" method="post">
+            <div class="form-group">
+                <label class="col-md-2 control-label">Username</label>
+                <input type="text" class="col-md-3" name="username"><br />
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Name</label>
+                <input type="text" class="col-md-3" name="name"><br />
+            </div><br />
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form><br /><br />
+        <form action="/" method="get">
+            <button type="submit" class="btn btn-default">Cancel</button>
+        </form>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+﻿@model ListingTodos.Models.Todo
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title>Edit todo</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="container theme-showcase" role="main">
+        <div class="page-header">
+            <h1>Edit todo</h1>
+        </div>
+        <div class="container col-md-offset-3">
+            <form action="/todo/@Model.Id/edit" method="post">
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Todo Description</label>
+                    <input type="text" class="col-md-3" name="title" value="@Model.Title"><br>
+                </div>
+                <div class="checkbox col-sm-push-2">
+                    <label>
+                        <input type="checkbox" name="isDone" value="true" checked="@Model.IsDone">Done
+                    </label>
+                </div>
+                <div class="checkbox col-sm-push-2">
+                    <label>
+                        <input type="checkbox" name="isUrgent" value="true" checked="@Model.IsUrgent">Urgent
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-success col-md-2">Save changes</button>
+            </form>
+            <form action="/todo/list" method="get">
+                <button type="submit" class="btn btn-default col-md-offset-2">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
