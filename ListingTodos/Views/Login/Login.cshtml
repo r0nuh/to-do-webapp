@@ -3,17 +3,25 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
-    <meta charset="utf-8"/>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
 </head>
 <body>
-    <form action="/" method="post">
-        <input type="text" name="Username" placeholder="Username" />
-        <button type="submit">Login</button>
-    </form>
-    <br />
-    <form action="/register" method="get">
-        <button type="submit">Register</button>
-    </form>
+    <div class="container theme-showcase" role="main">
+        <div class="page-header">
+            <h1>Login</h1>
+        </div>
+        <form action="/" method="post">
+            <input type="text" name="Username" placeholder="Username" />
+            <button type="submit">Login</button>
+        </form>
+        <br />
+        <form action="/register" method="get">
+            <button type="submit">Register</button>
+        </form>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
