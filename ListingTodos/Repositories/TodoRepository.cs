@@ -22,7 +22,7 @@ namespace ListingTodos.Repositories
         {
             todoViewModel.Users = todoContext.Users.ToList();
             todoViewModel.Todos = todoContext.Todos.ToList();
-            //todoContext.Users.Load();
+            
             return todoViewModel;
         }
 
@@ -30,13 +30,15 @@ namespace ListingTodos.Repositories
         {
             todoViewModel.Users = todoContext.Users.ToList();
             todoViewModel.Todos = todoContext.Todos.Where(x => x.IsDone == false).ToList();
+
             return todoViewModel;
         }
 
         public TodoViewModel ListByUser(string username)
         {
-            var user = todoContext.Users.Where(x => x.Username.Equals(username));
+            var user = todoContext.Users.FirstOrDefault(x => x.Username.Equals(username));
             todoViewModel.Todos = todoContext.Todos.Where(t => t.User.Equals(user)).ToList();
+            todoViewModel.Users = todoContext.Users.Where(u => u.Username.Equals(username)).ToList();
 
             return todoViewModel;
         }
@@ -69,6 +71,7 @@ namespace ListingTodos.Repositories
             todoContext.Todos.FirstOrDefault(x => x.Id == id).Title = edited.Title;
             todoContext.Todos.FirstOrDefault(x => x.Id == id).IsDone = edited.IsDone;
             todoContext.Todos.FirstOrDefault(x => x.Id == id).IsUrgent = edited.IsUrgent;
+
             todoContext.SaveChanges();
         }
     }

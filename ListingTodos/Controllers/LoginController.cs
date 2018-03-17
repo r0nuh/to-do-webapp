@@ -28,8 +28,7 @@ namespace ListingTodos.Controllers
             if (username == null)
                 return RedirectToAction("Login");
             else
-                //return Redirect($"/todo/list/{username}");
-                return Redirect("/todo/list");
+                return Redirect($"/todo/list/{username}");
         }
 
         [HttpGet("register")]
