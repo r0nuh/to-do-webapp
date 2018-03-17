@@ -38,7 +38,7 @@ namespace ListingTodos.Controlls
         [HttpGet("add")]
         public IActionResult Create()
         {
-            return View();
+            return View(todoRepository.ListAll().Users);
         }
 
         [HttpPost("add")]
