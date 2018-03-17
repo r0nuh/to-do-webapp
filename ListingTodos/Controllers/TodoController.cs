@@ -29,10 +29,10 @@ namespace ListingTodos.Controlls
         [HttpGet("list/{username}")]
         public IActionResult List([FromRoute]string username)
         {
-            if (username != null)
-                return View(todoRepository.ListByUser(username));
-            else
+            if (username.Equals("admin"))
                 return View(todoRepository.ListAll());
+            else
+                return View(todoRepository.ListByUser(username));
         }
 
         [HttpGet("add")]
