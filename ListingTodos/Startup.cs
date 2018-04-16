@@ -1,8 +1,11 @@
 ﻿using ListingTodos.Entities;
+using ListingTodos.Models;
 using ListingTodos.Repositories;
 using ListingTodos.ViewModels;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,7 +18,22 @@ namespace ListingTodos
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDbContext<TodoContext>(options => options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=todoDB; Integrated Security=True; Connect Timeout=30; Encrypt=False; TrustServerCertificate = True; ApplicationIntent = ReadWrite; MultiSubnetFailover = False"));
+            services.AddDbContext<TodoContext>(options => 
+            options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=todoDB; Integrated Security=True; Connect Timeout=30; Encrypt=False; TrustServerCertificate = True; ApplicationIntent = ReadWrite; MultiSubnetFailover = False"));
+            //services.AddIdentity<User, IdentityRole>()
+            //    .AddEntityFrameworkStores<TodoContext>()
+            //    .AddTokenProvider();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => 
+                {
+                    options.AccessDeniedPath = "/Login/ErrorForbidden";
+                    options.LoginPath = "/Login/ErrorNotLoggedIn";
+                })
+                /*.AddGoogle()*/;
+
+            services.AddAuthorization(options => 
+            options.AddPolicy("MustBeAdmin", p => p.RequireAuthenticatedUser().RequireRole("admin")));
+
             services.AddScoped<TodoRepository>();
             services.AddScoped<LoginRepository>();
             services.AddScoped<TodoViewModel>();
@@ -29,8 +47,11 @@ namespace ListingTodos
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
             app.UseStaticFiles();
+
+            app.UseAuthentication();
+
+            app.UseMvc();
         }
     }
 }

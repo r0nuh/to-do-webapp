@@ -23,18 +23,23 @@ namespace ListingTodos.Controlls
         [HttpGet("")]
         [Route("list")]
         [Authorize(Policy = "MustBeAdmin")]
-        public async Task<IActionResult> List([FromQuery] bool isActive)
+        public IActionResult List([FromQuery] bool isActive)
         {
-            var listAll = await todoRepository.ListAllAsync();
-            var listActive = await todoRepository.IsActiveAsync();
+            var listAll = todoRepository.ListAll();
+            var listActive = todoRepository.IsActive();
 
-            return View(isActive == false ? listAll : listActive);
+            if (isActive == false)
+                return View(listAll);
+            else
+                return View(listActive);
+            //return View(isActive == false ? listAll : listActive);
+            //return View(listAll);
         }
 
         [HttpGet("list/{username}")]
-        public async Task<IActionResult> List([FromRoute]string username)
+        public async Task<IActionResult> ListByUser([FromRoute]string username)
         {
-            var listAll = await todoRepository.ListAllAsync();
+            var listAll = todoRepository.ListAll();
             var listByUser = await todoRepository.ListByUserAsync(username);
 
             if (username.Equals("admin"))

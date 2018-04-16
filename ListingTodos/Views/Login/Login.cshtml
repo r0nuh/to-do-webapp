@@ -12,10 +12,19 @@
         <div class="page-header">
             <h1>Login</h1>
         </div>
-        <form action="/" method="post">
-            <input type="text" name="Username" placeholder="Username" />
-            <button type="submit">Login</button>
-        </form>
+
+        @*@if (User.Identity.IsAuthenticated)
+        {*@
+            <form action="/" method="post">
+                <input type="text" name="UserName" placeholder="Username" />
+                <button type="submit">Log in</button>
+            </form>
+        @*}*@
+        @*{
+            <form asp-action="/" method="post"></form>
+
+        }
+        else*@
         <br />
         <form action="/register" method="get">
             <button type="submit">Register</button>

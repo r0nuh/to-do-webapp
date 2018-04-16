@@ -20,18 +20,18 @@ namespace ListingTodos.Repositories
             this.todoViewModel = todoViewModel;
         }
 
-        public async Task<TodoViewModel> ListAllAsync()
+        public TodoViewModel ListAll()
         {
-            todoViewModel.Users = await todoContext.Users.ToListAsync();
-            todoViewModel.Todos = await todoContext.Todos.ToListAsync();
+            todoViewModel.Users = todoContext.Users.ToList();
+            todoViewModel.Todos = todoContext.Todos.ToList();
             
             return todoViewModel;
         }
 
-        public async Task<TodoViewModel> IsActiveAsync()
+        public TodoViewModel IsActive()
         {
-            todoViewModel.Users = await todoContext.Users.ToListAsync();
-            todoViewModel.Todos = await todoContext.Todos.Where(x => x.IsDone == false).ToListAsync();
+            todoViewModel.Users = todoContext.Users.ToList();
+            todoViewModel.Todos = todoContext.Todos.Where(x => x.IsDone == false).ToList();
 
             return todoViewModel;
         }
