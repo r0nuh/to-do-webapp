@@ -1,4 +1,4 @@
-﻿@model System.Collections.Generic.List<ListingTodos.Models.User>
+﻿
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -16,24 +16,32 @@
             <form action="/todo/add" method="post">
                 <div class="form-group">
                     <div class="col-sm-3">
-                        <input type="text" name="title" class="form-control" required>
+                        <input type="text" class="form-control" name="title" placeholder="Todo description" required>
                     </div>
                     <button type="submit" class="btn btn-default">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     </button>
                     <br /><br />
-                    <div class="col-sm-3">
-                        <select class="btn btn-default" required>
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <label class="control-label">Due on</label>
+                            <input type="date" class="form-control" name="dueon"><br>
+                        </div>
+                    </div>
+                    <br /><br />
+                    @*<div class="col-sm-3">
+                        <select class="btn btn-default" required name="user">
                             <option value="" disabled selected hidden>Choose user to assign to</option>
-                            @foreach (var user in Model)
+                            @foreach (var user in Model.User)
                             {
-                                <option value="@user.Id">@user.Username</option>
+                            <option value="@user.Id">@user.UserName</option>
                             }
                         </select>
-                    </div>
+                        <input type="checkbox" name="user" class="form-control" required>
+                    </div>*@
                 </div>
             </form><br /><br />
-            <form action="/todo/list" method="get">
+            <form action="/todo/list/{username}" method="get">
                 <button type="submit" class="btn btn-primary">Cancel</button>
             </form>
         </div>

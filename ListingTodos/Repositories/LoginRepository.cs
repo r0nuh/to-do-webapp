@@ -15,14 +15,14 @@ namespace ListingTodos.Repositories
 
         public User GetUser(string username)
         {
-            return todoContext.Users.FirstOrDefault(n => n.Username.Equals(username));
+            return todoContext.Users.FirstOrDefault(n => n.UserName.Equals(username));
         }
 
         public void AddUser(User user)
         {
             User newUser = new User()
             {
-                Username = user.Username,
+                UserName = user.UserName,
                 Name = user.Name
             };
             todoContext.Users.Add(newUser);

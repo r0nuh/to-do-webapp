@@ -1,4 +1,5 @@
 ﻿@model ListingTodos.ViewModels.TodoViewModel
+@using Humanizer
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -12,7 +13,7 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-md-8">
-                    @*<h1>Hi @Model.Users !</h1>*@
+                    <h1>Hi @Model.Users.FirstOrDefault() !</h1>
                     <h1>TODOs for today:</h1>
                 </div>
                 <div class="col-md-4">
@@ -33,9 +34,11 @@
                     <thead>
                         <tr>
                             <th scope="col"></th>
+                            <th scope="col">&#x2714;</th>
                             <th scope="col">Task</th>
                             <th scope="col">Done</th>
                             <th scope="col">Urgent</th>
+                            <th scope="col">Due on</th>
                             <th scope="col"></th>
                             <th scope="col">Created on</th>
                             <th scope="col">User</th>
@@ -52,7 +55,9 @@
                                         </button>
                                     </form>
                                 </td>
-                                @*<td>@item.Id</td>*@
+                                <td>
+                                    <input type="checkbox" name="@item.Id" value="true" class="done-checkbox" />
+                                </td>
                                 @if (item.IsUrgent == true && item.IsDone == true)
                                 {
                                     <td class="bg-danger"><strong><del>@item.Title</del></strong></td>
@@ -85,6 +90,7 @@
                                 {
                                     <td></td>
                                 }
+                                <td>@item.DueOn.Humanize()</td>
                                 <td>
                                     <form action="/todo/@item.Id/delete" method="post">
                                         <button type="submit" class="btn btn-danger">
@@ -92,8 +98,21 @@
                                         </button>
                                     </form>
                                 </td>
-                                <td>@item.Date.ToString("yyyy/MM/dd")</td>
-                                <td>@Model.Users.FirstOrDefault(x => x.Id == item.User.Id).Username</td>
+                                <td>@item.AddedOn.ToString("yyyy/MM/dd")</td>
+                                <td>
+                                    @if (item.User != null)
+                                    {
+                                        <a href="/todo/list/@item.User.UserName">
+                                            @Model.Users.FirstOrDefault(user => user.Id == item.User.Id).UserName
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/todo/list">
+                                             
+                                        </a>
+                                    }
+                                </td>
                             </tr>
                         }
                     </tbody>

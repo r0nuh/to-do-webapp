@@ -8,7 +8,9 @@ namespace ListingTodos.Models
         public string Title { get; set; }
         public bool IsUrgent { get; set; } = false;
         public bool IsDone { get; set; } = false;
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime AddedOn { get; set; } = DateTime.Now;
+        public DateTimeOffset? DueOn { get; set; }
+
         public User User { get; set; }
     }
 }

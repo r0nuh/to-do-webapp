@@ -2,8 +2,10 @@
 using ListingTodos.Models;
 using ListingTodos.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ListingTodos.Repositories
 {
@@ -18,40 +20,35 @@ namespace ListingTodos.Repositories
             this.todoViewModel = todoViewModel;
         }
 
-        public TodoViewModel ListAll()
+        public async Task<TodoViewModel> ListAllAsync()
         {
-            todoViewModel.Users = todoContext.Users.ToList();
-            todoViewModel.Todos = todoContext.Todos.ToList();
+            todoViewModel.Users = await todoContext.Users.ToListAsync();
+            todoViewModel.Todos = await todoContext.Todos.ToListAsync();
             
             return todoViewModel;
         }
 
-        public TodoViewModel IsActive()
+        public async Task<TodoViewModel> IsActiveAsync()
         {
-            todoViewModel.Users = todoContext.Users.ToList();
-            todoViewModel.Todos = todoContext.Todos.Where(x => x.IsDone == false).ToList();
+            todoViewModel.Users = await todoContext.Users.ToListAsync();
+            todoViewModel.Todos = await todoContext.Todos.Where(x => x.IsDone == false).ToListAsync();
 
             return todoViewModel;
         }
 
-        public TodoViewModel ListByUser(string username)
+        public async Task<TodoViewModel> ListByUserAsync(string username)
         {
-            var user = todoContext.Users.FirstOrDefault(x => x.Username.Equals(username));
-            todoViewModel.Todos = todoContext.Todos.Where(t => t.User.Equals(user)).ToList();
-            todoViewModel.Users = todoContext.Users.Where(u => u.Username.Equals(username)).ToList();
+            var user = await todoContext.Users.FirstOrDefaultAsync(x => x.UserName.Equals(username));
+            todoViewModel.Todos = await todoContext.Todos.Where(t => t.User.Equals(user)).ToListAsync();
+            todoViewModel.Users = await todoContext.Users.Where(u => u.UserName.Equals(username)).ToListAsync();
 
             return todoViewModel;
         }
 
-        public void AddTodo(string title)
+        public async Task AddTodoAsync(Todo newTodo)
         {
-            Todo newTodo = new Todo()
-            {
-                Title = title
-            };
-            todoContext.Todos.Add(newTodo);
-
-            todoContext.SaveChanges();
+            await todoContext.Todos.AddAsync(newTodo);
+            await todoContext.SaveChangesAsync();
         }
 
         public void Remove(long id)
@@ -69,6 +66,7 @@ namespace ListingTodos.Repositories
         public void Edit(long id, Todo edited)
         {
             todoContext.Todos.FirstOrDefault(x => x.Id == id).Title = edited.Title;
+            todoContext.Todos.FirstOrDefault(x => x.Id == id).DueOn = edited.DueOn;
             todoContext.Todos.FirstOrDefault(x => x.Id == id).IsDone = edited.IsDone;
             todoContext.Todos.FirstOrDefault(x => x.Id == id).IsUrgent = edited.IsUrgent;
 

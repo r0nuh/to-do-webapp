@@ -1,6 +1,10 @@
 ﻿using ListingTodos.Models;
 using ListingTodos.Repositories;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,33 +22,37 @@ namespace ListingTodos.Controlls
 
         [HttpGet("")]
         [Route("list")]
-        public IActionResult List([FromQuery] bool isActive)
+        [Authorize(Policy = "MustBeAdmin")]
+        public async Task<IActionResult> List([FromQuery] bool isActive)
         {
-            if (isActive == false)
-                return View(todoRepository.ListAll());
-            else
-                return View(todoRepository.IsActive());
+            var listAll = await todoRepository.ListAllAsync();
+            var listActive = await todoRepository.IsActiveAsync();
+
+            return View(isActive == false ? listAll : listActive);
         }
 
         [HttpGet("list/{username}")]
-        public IActionResult List([FromRoute]string username)
+        public async Task<IActionResult> List([FromRoute]string username)
         {
+            var listAll = await todoRepository.ListAllAsync();
+            var listByUser = await todoRepository.ListByUserAsync(username);
+
             if (username.Equals("admin"))
-                return View(todoRepository.ListAll());
+                return View(listAll);
             else
-                return View(todoRepository.ListByUser(username));
+                return View(listByUser);
         }
 
         [HttpGet("add")]
         public IActionResult Create()
         {
-            return View(todoRepository.ListAll().Users);
+            return View();
         }
 
         [HttpPost("add")]
-        public IActionResult AddTodo(Todo todo)
+        public async Task<IActionResult> AddTodo(Todo todo)
         {
-            todoRepository.AddTodo(todo.Title);
+            await todoRepository.AddTodoAsync(todo);
             return RedirectToAction("List");
         }
 
@@ -67,5 +75,13 @@ namespace ListingTodos.Controlls
             todoRepository.Edit(id, todo);
             return RedirectToAction("List");
         }
+
+        //[HttpPost()]
+        //public async Task<IActionResult> Logout()
+        //{
+        //    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+        //    return RedirectToAction("Login");
+        //}
     }
 }
