@@ -36,11 +36,11 @@ namespace ListingTodos.Repositories
             return todoViewModel;
         }
 
-        public async Task<TodoViewModel> ListByUserAsync(string username)
+        public TodoViewModel ListByUser(string username)
         {
-            var user = await todoContext.Users.FirstOrDefaultAsync(x => x.UserName.Equals(username));
-            todoViewModel.Todos = await todoContext.Todos.Where(t => t.User.Equals(user)).ToListAsync();
-            todoViewModel.Users = await todoContext.Users.Where(u => u.UserName.Equals(username)).ToListAsync();
+            var user = todoContext.Users.FirstOrDefaultAsync(x => x.UserName.Equals(username));
+            todoViewModel.Todos = todoContext.Todos.Where(t => t.User.Equals(user)).ToList();
+            todoViewModel.Users = todoContext.Users.Where(u => u.UserName.Equals(username)).ToList();
 
             return todoViewModel;
         }

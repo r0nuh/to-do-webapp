@@ -37,10 +37,10 @@ namespace ListingTodos.Controlls
         }
 
         [HttpGet("list/{username}")]
-        public async Task<IActionResult> ListByUser([FromRoute]string username)
+        public IActionResult List([FromRoute]string username)
         {
             var listAll = todoRepository.ListAll();
-            var listByUser = await todoRepository.ListByUserAsync(username);
+            var listByUser = todoRepository.ListByUser(username);
 
             if (username.Equals("admin"))
                 return View(listAll);
