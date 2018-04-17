@@ -22,30 +22,22 @@ namespace ListingTodos.Controlls
 
         [HttpGet("")]
         [Route("list")]
-        [Authorize(Policy = "MustBeAdmin")]
+        //[Authorize(Policy = "MustBeAdmin")]
         public IActionResult List([FromQuery] bool isActive)
         {
-            var listAll = todoRepository.ListAll();
-            var listActive = todoRepository.IsActive();
-
-            if (isActive == false)
-                return View(listAll);
-            else
-                return View(listActive);
-            //return View(isActive == false ? listAll : listActive);
-            //return View(listAll);
+            return View(isActive == false 
+                ? todoRepository.ListAll() 
+                : todoRepository.IsActive());
         }
 
         [HttpGet("list/{username}")]
         public IActionResult List([FromRoute]string username)
         {
-            var listAll = todoRepository.ListAll();
             var listByUser = todoRepository.ListByUser(username);
 
-            if (username.Equals("admin"))
-                return View(listAll);
-            else
-                return View(listByUser);
+            ViewBag.User = username;
+
+            return View(listByUser);
         }
 
         [HttpGet("add")]
