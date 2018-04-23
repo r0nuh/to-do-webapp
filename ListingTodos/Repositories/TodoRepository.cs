@@ -31,14 +31,14 @@ namespace ListingTodos.Repositories
         public TodoViewModel IsActive()
         {
             todoViewModel.Users = todoContext.Users.ToList();
-            todoViewModel.Todos = todoContext.Todos.Where(x => x.IsDone == false).ToList();
+            todoViewModel.Todos = todoContext.Todos.Where(t => t.IsDone == false).ToList();
 
             return todoViewModel;
         }
 
         public TodoViewModel ListByUser(string username)
         {
-            var user = todoContext.Users.FirstOrDefaultAsync(x => x.UserName.Equals(username));
+            var user = todoContext.Users.FirstOrDefault(u => u.UserName.Equals(username));
             todoViewModel.Todos = todoContext.Todos.Where(t => t.User.Equals(user)).ToList();
             todoViewModel.Users = todoContext.Users.Where(u => u.UserName.Equals(username)).ToList();
 
@@ -53,7 +53,7 @@ namespace ListingTodos.Repositories
 
         public void Remove(long id)
         {
-            Todo deleted = todoContext.Todos.FirstOrDefault(x => x.Id == id);
+            Todo deleted = todoContext.Todos.FirstOrDefault(t => t.Id == id);
             todoContext.Todos.Remove(deleted);
             todoContext.SaveChanges();
         }
