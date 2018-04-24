@@ -31,19 +31,19 @@ namespace ListingTodos.Controllers
         {
             if (string.IsNullOrEmpty(username))
                 return RedirectToAction("Login");
-            //else
-            //    return Redirect($"/todo/list/{username}");
-            var identity = new ClaimsIdentity(new[]
-            {
-                new Claim(ClaimTypes.Name, username),
-                new Claim(ClaimTypes.Role, "admin")
-            }, CookieAuthenticationDefaults.AuthenticationScheme);
+            else
+                return Redirect($"/todo/list/{username}");
+            //var identity = new ClaimsIdentity(new[]
+            //{
+            //    new Claim(ClaimTypes.Name, username),
+            //    new Claim(ClaimTypes.Role, "admin")
+            //}, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            var principal = new ClaimsPrincipal(identity);
+            //var principal = new ClaimsPrincipal(identity);
 
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+            //await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-            return Redirect($"/todo/list/{username}");
+            //return Redirect($"/todo/list/{username}");
         }
 
         [HttpGet("register")]
