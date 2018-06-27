@@ -22,7 +22,7 @@ namespace ListingTodos.Controlls
 
         [HttpGet("")]
         [Route("list")]
-        [Authorize(Policy = "MustBeAdmin")]
+        //[Authorize(Policy = "MustBeAdmin")]
         public async Task<IActionResult> List([FromQuery] bool isActive)
         {
             var listAll = await todoRepository.ListAllAsync();

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace ListingTodos
 {
@@ -15,7 +16,9 @@ namespace ListingTodos
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDbContext<TodoContext>(options => options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=todoDB; Integrated Security=True; Connect Timeout=30; Encrypt=False; TrustServerCertificate = True; ApplicationIntent = ReadWrite; MultiSubnetFailover = False"));
+            services.AddDbContext<TodoContext>(options =>
+                options.UseNpgsql(Environment.GetEnvironmentVariable("ConnectionStringTodoDB")));
+                 //options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=todoDB; Integrated Security=True; Connect Timeout=30; Encrypt=False; TrustServerCertificate = True; ApplicationIntent = ReadWrite; MultiSubnetFailover = False"));
             services.AddScoped<TodoRepository>();
             services.AddScoped<LoginRepository>();
             services.AddScoped<TodoViewModel>();
