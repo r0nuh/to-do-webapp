@@ -23,16 +23,16 @@ namespace ListingTodos
             //services.AddIdentity<User, IdentityRole>()
             //    .AddEntityFrameworkStores<TodoContext>()
             //    .AddTokenProvider();
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options => 
-                {
-                    options.AccessDeniedPath = "/Login/ErrorForbidden";
-                    options.LoginPath = "/Login/ErrorNotLoggedIn";
-                })
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //    .AddCookie(options => 
+            //    {
+            //        options.AccessDeniedPath = "/Errors/ErrorForbidden";
+            //        options.LoginPath = "/Errors/ErrorNotLoggedIn";
+            //    })
                 /*.AddGoogle()*/;
 
-            services.AddAuthorization(options => 
-            options.AddPolicy("MustBeAdmin", p => p.RequireAuthenticatedUser().RequireRole("admin")));
+            //services.AddAuthorization(options => 
+            //options.AddPolicy("MustBeAdmin", p => p.RequireAuthenticatedUser().RequireRole("admin")));
 
             services.AddScoped<TodoRepository>();
             services.AddScoped<LoginRepository>();
@@ -46,10 +46,15 @@ namespace ListingTodos
             {
                 app.UseDeveloperExceptionPage();
             }
+            //else
+            //{
+                //app.UseExceptionHandler("/Errors");
+                //app.UseStatusCodePagesWithReExecute("Errors/Error/{0}");
+            //}
 
             app.UseStaticFiles();
 
-            app.UseAuthentication();
+            //app.UseAuthentication();
 
             app.UseMvc();
         }
