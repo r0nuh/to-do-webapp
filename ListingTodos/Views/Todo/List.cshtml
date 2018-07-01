@@ -34,7 +34,7 @@
                     <thead>
                         <tr>
                             <th scope="col"></th>
-                            <th scope="col">&#x2714;</th>
+                            @*@<th scope="col">&#x2714;</th>*@
                             <th scope="col">Task</th>
                             <th scope="col">Done</th>
                             <th scope="col">Urgent</th>
@@ -55,9 +55,9 @@
                                         </button>
                                     </form>
                                 </td>
-                                <td>
+                                @*@<td>
                                     <input type="checkbox" name="@item.Id" value="true" class="done-checkbox" />
-                                </td>
+                                </td>*@
                                 @if (item.IsUrgent == true && item.IsDone == true)
                                 {
                                     <td class="bg-danger"><strong><del>@item.Title</del></strong></td>

@@ -11,20 +11,24 @@ using System;
 namespace ListingTodos.Migrations
 {
     [DbContext(typeof(TodoContext))]
-    [Migration("20180115165759_InitialCreate")]
+    [Migration("20180701091933_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
+                .HasAnnotation("ProductVersion", "2.0.1-rtm-125");
 
             modelBuilder.Entity("ListingTodos.Models.Todo", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("AddedOn");
+
+                    b.Property<DateTimeOffset?>("DueOn");
 
                     b.Property<bool>("IsDone");
 
@@ -32,9 +36,34 @@ namespace ListingTodos.Migrations
 
                     b.Property<string>("Title");
 
+                    b.Property<long?>("UserId");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Todos");
+                });
+
+            modelBuilder.Entity("ListingTodos.Models.User", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ListingTodos.Models.Todo", b =>
+                {
+                    b.HasOne("ListingTodos.Models.User", "User")
+                        .WithMany("Todos")
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }
