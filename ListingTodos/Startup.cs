@@ -22,7 +22,7 @@ namespace ListingTodos
         {
             services.AddMvc();
             services.AddDbContext<TodoContext>(options =>
-                options.UseNpgsql(Environment.GetEnvironmentVariable("ConnectionStringTodoDB")));
+                options.UseNpgsql(Environment.GetEnvironmentVariable("ConnectionTodoDB")));
                  //options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=todoDB; Integrated Security=True; Connect Timeout=30; Encrypt=False; TrustServerCertificate = True; ApplicationIntent = ReadWrite; MultiSubnetFailover = False"));
             services.AddScoped<TodoRepository>();
             services.AddScoped<LoginRepository>();
