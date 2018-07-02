@@ -8,16 +8,18 @@ using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace ListingTodos.Controlls
+namespace ListingTodos.Controllers
 {
     [Route("todo")]
     public class TodoController : Controller
     {
         private TodoRepository todoRepository;
+        private LoginRepository loginRepository;
 
-        public TodoController(TodoRepository todoRepository)
+        public TodoController(TodoRepository todoRepository, LoginRepository loginRepository)
         {
             this.todoRepository = todoRepository;
+            this.loginRepository = loginRepository;
         }
 
         [HttpGet("")]
@@ -31,9 +33,10 @@ namespace ListingTodos.Controlls
             return View(isActive == false ? listAll : listActive);
         }
 
-        [HttpGet("list/{username}")]
+        [HttpGet("list/{username?}")]
         public async Task<IActionResult> List([FromRoute]string username)
         {
+            ViewBag.User = loginRepository.GetUser(username).Name;
             var listAll = await todoRepository.ListAllAsync();
             var listByUser = await todoRepository.ListByUserAsync(username);
 
