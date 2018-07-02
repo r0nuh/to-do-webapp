@@ -1,10 +1,14 @@
 ﻿@model ListingTodos.ViewModels.TodoViewModel
 @using Humanizer
+@{
+    Layout = "_Layout";
+}
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
-    <title>TODOs</title>
+    @{ ViewBag.Title = "Todos";}
+    @*<title>TODOs</title>*@
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -13,13 +17,8 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-md-8">
-                    <h1>Hi @Model.Users.FirstOrDefault() !</h1>
+                    <h1>Hi @ViewBag.User !</h1>
                     <h1>TODOs for today:</h1>
-                </div>
-                <div class="col-md-4">
-                    <form action="/" method="get">
-                        <button type="submit" class="btn btn-primary col-sm-offset-7" style="width:90px">Exit</button>
-                    </form>
                 </div>
             </div>
         </div>
@@ -56,8 +55,8 @@
                                     </form>
                                 </td>
                                 @*@<td>
-                                    <input type="checkbox" name="@item.Id" value="true" class="done-checkbox" />
-                                </td>*@
+                                        <input type="checkbox" name="@item.Id" value="true" class="done-checkbox" />
+                                    </td>*@
                                 @if (item.IsUrgent == true && item.IsDone == true)
                                 {
                                     <td class="bg-danger"><strong><del>@item.Title</del></strong></td>
@@ -109,7 +108,7 @@
                                     else
                                     {
                                         <a href="/todo/list">
-                                             
+
                                         </a>
                                     }
                                 </td>

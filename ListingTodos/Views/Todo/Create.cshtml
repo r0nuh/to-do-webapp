@@ -1,4 +1,6 @@
-﻿
+﻿@{
+    Layout = "_Layout";
+}
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -10,7 +12,9 @@
 <body>
     <div class="container theme-showcase" role="main">
         <div class="page-header">
-            <h1>Add new todo</h1>
+            <div class="row">
+                <h1>Add new todo</h1>
+            </div>
         </div>
         <div class="container col-md-offset-3">
             <form action="/todo/add" method="post">
@@ -30,18 +34,18 @@
                     </div>
                     <br /><br />
                     @*<div class="col-sm-3">
-                        <select class="btn btn-default" required name="user">
-                            <option value="" disabled selected hidden>Choose user to assign to</option>
-                            @foreach (var user in Model.User)
-                            {
-                            <option value="@user.Id">@user.UserName</option>
-                            }
-                        </select>
-                        <input type="checkbox" name="user" class="form-control" required>
-                    </div>*@
+                            <select class="btn btn-default" required name="user">
+                                <option value="" disabled selected hidden>Choose user to assign to</option>
+                                @foreach (var user in Model.User)
+                                {
+                                <option value="@user.Id">@user.UserName</option>
+                                }
+                            </select>
+                            <input type="checkbox" name="user" class="form-control" required>
+                        </div>*@
                 </div>
             </form><br /><br />
-            <form action="/todo/list/{username}" method="get">
+            <form action="/todo/list/" method="get">
                 <button type="submit" class="btn btn-primary">Cancel</button>
             </form>
         </div>
