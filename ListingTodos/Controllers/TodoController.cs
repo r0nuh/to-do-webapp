@@ -67,9 +67,9 @@ namespace ListingTodos.Controllers
         }
 
         [HttpGet("{id}/edit")]
-        public IActionResult Edit(long id)
+        public async Task<IActionResult> Edit(long id)
         {
-            return View(todoRepository.TodoDetails(id));
+            return View(await todoRepository.TodoDetailsAsync(id));
         }
 
         [HttpPost("{id}/edit")]
@@ -82,7 +82,7 @@ namespace ListingTodos.Controllers
         [HttpGet("{id}/details")]
         public async Task<IActionResult> Details(long id)
         {
-            Todo todo = await todoRepository.TodoDetails(id);
+            Todo todo = await todoRepository.TodoDetailsAsync(id);
 
             if (todo == null)
                 return NotFound();

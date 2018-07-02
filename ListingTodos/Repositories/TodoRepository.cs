@@ -58,7 +58,7 @@ namespace ListingTodos.Repositories
             todoContext.SaveChanges();
         }
 
-        public async Task<Todo> TodoDetails(long id)
+        public async Task<Todo> TodoDetailsAsync(long id)
         {
             Todo todo = await todoContext.Todos.FirstOrDefaultAsync(t => t.Id == id);
             return todo;
