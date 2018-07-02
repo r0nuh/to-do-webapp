@@ -57,22 +57,40 @@
                                 @*@<td>
                                         <input type="checkbox" name="@item.Id" value="true" class="done-checkbox" />
                                     </td>*@
+
                                 @if (item.IsUrgent == true && item.IsDone == true)
                                 {
-                                    <td class="bg-danger"><strong><del>@item.Title</del></strong></td>
+                                    <td class="bg-danger">
+                                        <strong>
+                                            <del>
+                                                <a href="/todo/@item.Id/details">@item.Title</a>
+                                            </del>
+                                        </strong>
+                                    </td>
                                 }
                                 else if (item.IsDone == true)
                                 {
-                                    <td><del>@item.Title</del></td>
+                                    <td>
+                                        <del>
+                                            <a href="/todo/@item.Id/details">@item.Title</a>
+                                        </del>
+                                    </td>
                                 }
                                 else if (item.IsUrgent == true)
                                 {
-                                    <td class="bg-danger"><strong>@item.Title</strong></td>
+                                    <td class="bg-danger">
+                                        <strong>
+                                            <a href="/todo/@item.Id/details">@item.Title</a>
+                                        </strong>
+                                    </td>
                                 }
                                 else
                                 {
-                                    <td>@item.Title</td>
+                                    <td>
+                                        <a href="/todo/@item.Id/details">@item.Title</a>
+                                    </td>
                                 }
+
                                 @if (item.IsDone == true)
                                 {
                                     <td><button class="btn btn-success glyphicon glyphicon-ok"></button></td>

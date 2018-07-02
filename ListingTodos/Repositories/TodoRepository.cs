@@ -53,14 +53,15 @@ namespace ListingTodos.Repositories
 
         public void Remove(long id)
         {
-            Todo deleted = todoContext.Todos.FirstOrDefault(x => x.Id == id);
+            Todo deleted = todoContext.Todos.FirstOrDefault(t => t.Id == id);
             todoContext.Todos.Remove(deleted);
             todoContext.SaveChanges();
         }
 
-        public Todo TodoDetails(long id)
+        public async Task<Todo> TodoDetails(long id)
         {
-            return todoContext.Todos.FirstOrDefault(x => x.Id == id);
+            Todo todo = await todoContext.Todos.FirstOrDefaultAsync(t => t.Id == id);
+            return todo;
         }
 
         public void Edit(long id, Todo edited)

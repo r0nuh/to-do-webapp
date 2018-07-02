@@ -79,6 +79,17 @@ namespace ListingTodos.Controllers
             return RedirectToAction("List");
         }
 
+        [HttpGet("{id}/details")]
+        public async Task<IActionResult> Details(long id)
+        {
+            Todo todo = await todoRepository.TodoDetails(id);
+
+            if (todo == null)
+                return NotFound();
+
+            return View(todo);
+        }
+
         //[HttpPost()]
         //public async Task<IActionResult> Logout()
         //{
