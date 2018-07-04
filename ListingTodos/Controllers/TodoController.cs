@@ -47,13 +47,13 @@ namespace ListingTodos.Controllers
                 return View(listByUser);
         }
 
-        [HttpGet("{username?}/add")]
+        [HttpGet("add")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost("{username?}/add")]
+        [HttpPost("add")]
         public async Task<IActionResult> AddTodo(Todo todo)
         {
             await todoRepository.AddTodoAsync(todo);
