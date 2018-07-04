@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ListingTodos.Models
 {
@@ -9,7 +10,8 @@ namespace ListingTodos.Models
         public bool IsUrgent { get; set; } = false;
         public bool IsDone { get; set; } = false;
         public DateTime AddedOn { get; set; } = DateTime.Now;
-        public DateTimeOffset? DueOn { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? DueOn { get; set; }
 
         public User User { get; set; }
     }

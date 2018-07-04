@@ -38,10 +38,16 @@ namespace ListingTodos.Controllers
         }
 
         [HttpPost("register")]
+        [ValidateAntiForgeryToken]
         public IActionResult AddUser(User user)
         {
-            loginRepository.AddUser(user);
-            return RedirectToAction("Login");
+            if (ModelState.IsValid)
+            {
+                loginRepository.AddUser(user);
+                return RedirectToAction("Login");
+            }
+            
+            return View("Register", user);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model User
+
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <title>User registration</title>
@@ -10,18 +12,24 @@
         <div class="page-header">
             <h1>User registration</h1>
         </div>
-        <form action="/register" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form asp-controller="Login" asp-action="Register" method="post">
             <div class="form-group">
-                <label class="col-md-2 control-label">Username</label>
-                <input type="text" class="col-md-3" name="username"><br />
-            </div>
-            <div class="form-group">
-                <label class="col-md-2 control-label">Name</label>
-                <input type="text" class="col-md-3" name="name"><br />
+                <label asp-for="UserName" class="col-md-2 control-label">Username</label>
+                <div class="col-md-3">
+                    <input asp-for="UserName" class="form-control" required autofocus>
+                </div>
+                <span asp-validation-for="UserName" class="text-danger">&ensp;</span><br />
             </div><br />
+            <div class="form-group">
+                <label asp-for="Name" class="col-md-2 control-label">Name</label>
+                <div class="col-md-3">
+                    <input asp-for="Name" type="text" class="form-control">
+                </div>
+            </div><br /><br />
             <button type="submit" class="btn btn-success">Submit</button>
         </form><br /><br />
-        <form action="/" method="get">
+        <form asp-controller="Login" asp-action="Login" method="get">
             <button type="submit" class="btn btn-default">Cancel</button>
         </form>
     </div>

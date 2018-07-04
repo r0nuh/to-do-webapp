@@ -28,9 +28,10 @@ namespace ListingTodos.Controllers
         public async Task<IActionResult> List([FromQuery] bool isActive)
         {
             var listAll = await todoRepository.ListAllAsync();
-            var listActive = await todoRepository.IsActiveAsync();
+            //    var listActive = await todoRepository.IsActiveAsync();
 
-            return View(isActive == false ? listAll : listActive);
+            //    return View(isActive == false ? listAll : listActive);
+            return View(listAll);
         }
 
         [HttpGet("list/{username?}")]
@@ -46,13 +47,13 @@ namespace ListingTodos.Controllers
                 return View(listByUser);
         }
 
-        [HttpGet("add")]
+        [HttpGet("{username?}/add")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost("add")]
+        [HttpPost("{username?}/add")]
         public async Task<IActionResult> AddTodo(Todo todo)
         {
             await todoRepository.AddTodoAsync(todo);
@@ -69,7 +70,12 @@ namespace ListingTodos.Controllers
         [HttpGet("{id}/edit")]
         public async Task<IActionResult> Edit(long id)
         {
-            return View(await todoRepository.TodoDetailsAsync(id));
+            Todo todo = await todoRepository.TodoDetailsAsync(id);
+
+            if (todo == null)
+                return NotFound();
+            
+            return View(todo);
         }
 
         [HttpPost("{id}/edit")]

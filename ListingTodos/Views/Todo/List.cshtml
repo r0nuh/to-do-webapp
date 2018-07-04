@@ -1,4 +1,4 @@
-﻿@model ListingTodos.ViewModels.TodoViewModel
+﻿@model TodoViewModel
 @using Humanizer
 @{
     Layout = "_Layout";
@@ -11,11 +11,12 @@
                 <div class="col-md-8">
                     <h1>Hi @ViewBag.User !</h1>
                     <h1>TODOs for today:</h1>
+                    @*<a asp-controller="Todo" asp-action="List" asp-route="isActive">Show only active todos</a>*@
                 </div>
             </div>
         </div>
         <div>
-            <form action="/todo/add" method="get">
+            <form action="/todo/{username}/add" method="get">
                 <button type="submit" class="btn btn-success">Add new todo</button>
             </form>
         </div><br />
