@@ -10,16 +10,11 @@
             <div class="row">
                 <div class="col-md-8">
                     <h1>Hi @ViewBag.User !</h1>
-                    <h1>TODOs for today:</h1>
+                    <h3>Your todos:</h3>
                     @*<a asp-controller="Todo" asp-action="List" asp-route="isActive">Show only active todos</a>*@
                 </div>
             </div>
         </div>
-        <div>
-            <form action="/todo/{username}/add" method="get">
-                <button type="submit" class="btn btn-success">Add new todo</button>
-            </form>
-        </div><br />
         <div class="row">
             <div class="col-md-10">
                 <table class="table table-hover">
@@ -48,8 +43,8 @@
                                     </form>
                                 </td>
                                 @*@<td>
-                                        <input type="checkbox" name="@item.Id" value="true" class="done-checkbox" />
-                                    </td>*@
+                                    <input type="checkbox" name="@item.Id" value="true" class="done-checkbox" />
+                                </td>*@
 
                                 @if (item.IsUrgent == true && item.IsDone == true)
                                 {
@@ -126,6 +121,11 @@
                     </tbody>
                 </table>
             </div>
+        </div><br />
+        <div>
+            <form action="/todo/{username}/add" method="get">
+                <button type="submit" class="btn btn-success">Add new todo</button>
+            </form>
         </div>
     </div>
 </body>
