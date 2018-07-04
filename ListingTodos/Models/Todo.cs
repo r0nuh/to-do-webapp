@@ -11,7 +11,7 @@ namespace ListingTodos.Models
         public bool IsDone { get; set; } = false;
         public DateTime AddedOn { get; set; } = DateTime.Now;
         [DataType(DataType.Date)]
-        public DateTime? DueOn { get; set; }
+        public DateTimeOffset? DueOn { get; set; }
 
         public User User { get; set; }
     }

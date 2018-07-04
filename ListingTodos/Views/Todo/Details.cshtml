@@ -19,12 +19,12 @@
                 <dt>Is done?</dt>
                 @if (Model.IsDone == true)
                 {
-                    <dd><button class="btn btn-sm glyphicon glyphicon-ok"></button></dd>
+                    <dd>&#10004;</dd>
                 }
                 else
                 {
                     <dd></dd>
-                }                
+                }
                 @if (Model.IsUrgent == true)
                 {
                     <dt><span style="background-color: red">Is urgent?</span></dt>
