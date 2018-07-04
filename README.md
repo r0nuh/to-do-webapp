@@ -1,4 +1,4 @@
-# to-do-webapp
+# Todo webapp
 For learning and practicing purpose
 
 ## Features
