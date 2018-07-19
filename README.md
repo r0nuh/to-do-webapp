@@ -12,5 +12,5 @@ For learning and practicing purpose
 * Proper login with authentication
 * When creating a todo the logged in user is assigned to it 
 
-[Try it out](https://to-do-webapp.herokuapp.com)
+[Try it out](https://to-do-webapp.herokuapp.com)  
 [Without registration](https://to-do-webapp.herokuapp.com/todo)
