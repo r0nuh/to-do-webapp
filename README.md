@@ -13,3 +13,4 @@ For learning and practicing purpose
 * When creating a todo the logged in user is assigned to it 
 
 [Try it out](https://to-do-webapp.herokuapp.com)
+[Without registration](https://to-do-webapp.herokuapp.com/todo)
